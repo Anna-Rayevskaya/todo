@@ -1,18 +1,14 @@
 import TaskListItem from "../task-list-item/task-list-item";
 import './task-list.css';
-const TaskList = ({tasks}) => {
-  
-  const elements = tasks.map((item) => {
-    const {id, ...itemProps} = item;
-    return (<li key={id} className="list-group-item">
-      <TaskListItem {...itemProps}/>
-    </li>)
-  });
+const TaskList = () => {
     return (
       <ul className="list-group todo-list">
-        {elements}
+          <TaskListItem />
       </ul>
     );
   };
+
+  
+
 
   export default TaskList;

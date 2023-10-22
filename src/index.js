@@ -1,9 +1,12 @@
+
+  import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Header from './components/header/header';
 import TaskList from './components/task-list/task-list';
 import './index.css';
 const container = document.getElementById('app');
 const root = createRoot(container);
+
 
 const App = () => {
 
@@ -21,4 +24,4 @@ const App = () => {
     );
   };
   
-  root.render(<App/>);
+  root.render(<App tab="home"/>);
