@@ -1,7 +1,7 @@
 
-  import React from 'react';
+import React from 'react';
 import { createRoot } from 'react-dom/client';
-import Header from './components/header/header';
+import NewTaskForm  from './components/NewTaskForm/NewTaskForm';
 import TaskList from './components/task-list/task-list';
 import './index.css';
 const container = document.getElementById('app');
@@ -18,8 +18,13 @@ const App = () => {
   
     return (
       <div className="todoapp">
-        <Header/>
-        <TaskList/>
+        <header className="header">
+          <h1>My Todo List</h1>
+          <NewTaskForm/>
+        </header>
+        <section className="main">
+          <TaskList/>
+        </section>  
       </div>
     );
   };

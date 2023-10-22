@@ -1,18 +1,15 @@
-import './header.css';
-const Header = () =>{
-    return (
-        <header className="header">
-    <h1>My Todo List</h1>
+import './NewTaskForm.css';
+const NewTaskForm = () =>{
+    return (      
     <input 
         className="new-todo" 
         placeholder="What needs to be done?">
     </input>
-    </header>
     );
   };
  
 
-  export default Header;
+  export default NewTaskForm ;
   
 //   import './header.css';
 // const Header = () =>{
