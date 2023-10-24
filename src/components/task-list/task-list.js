@@ -1,11 +1,16 @@
 import TaskListItem from "../task-list-item/task-list-item";
 import './task-list.css';
-const TaskList = () => {
+const TaskList = ({ tasks, onDeleted }) => {
+  const elements = tasks.map((item)=> {
+    const {id, ...itemProps} = item;
+    return(
+      <TaskListItem {...itemProps} key={id}
+      onDeleted = {() => onDeleted(id)}/>
+    )
+  })
     return (
       <ul className="list-group todo-list">
-          <TaskListItem label='задача 1'/>
-          <TaskListItem label='задача 2'/>
-          <TaskListItem label='задача 3'/>
+        {elements}
       </ul>
     );
   };

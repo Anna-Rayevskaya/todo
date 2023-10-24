@@ -1,13 +1,16 @@
 import './NewTaskForm.css';
 const NewTaskForm = () =>{
+  function handleClick(event) {
+   console.log('You clicked me!');
+  }
     return (      
     <input 
         className="new-todo" 
-        placeholder="What needs to be done?">
+        placeholder="What needs to be done?"
+        onClick={handleClick}>
     </input>
     );
   };
- 
 
   export default NewTaskForm ;
   
