@@ -4,17 +4,11 @@ export default class TaskListItem extends Component {
   state = {
     done: false
   }
-
-  onLabelClik = () => {
-    this.setState(({done}) => {
-      return{
-        done: !done
-      }
-    });
-  }
     render(){
-      const { label } = this.props;
-      const { done } = this.state;
+      const { label, onDeleted,
+        onToggleImportant,
+        onToggleDone,
+        done} = this.props;
 
       let className = '';
        if(done){
@@ -23,18 +17,20 @@ export default class TaskListItem extends Component {
       return(
         <li className = {className}>
             <div className="view">
-              <input className="toggle" type="checkbox" onClick = { this.onLabelClik }/>
+              <input className="toggle" type="checkbox" onClick = { onToggleDone }/>
               <label>        
                 <span 
                   className = 'description'
-                  onClick = { this.onLabelClik }>
+                  onClick = { onToggleDone }>
                     { label }
                 </span>
                 <span className="created">created 5 minutes ago</span>
               </label>
-              <button className="icon icon-edit"></button>
+              <button className="icon icon-edit"
+              onClick={onToggleImportant}
+              ></button>
               <button className="icon icon-destroy"
-              onClick={this.props.onDeleted}
+              onClick={onDeleted}
               ></button>
             </div>
             </li>
