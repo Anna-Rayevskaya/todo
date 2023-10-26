@@ -46,8 +46,6 @@ export default class App extends Component{
         })
     }
 
-
-
     onToggleDone = (id) => {
         this.setState(({todoData}) => {
             const idx = todoData.findIndex((el) => el.id === id);
@@ -64,23 +62,63 @@ export default class App extends Component{
         
     }
 
-  render(){
+    filter = (text) => {
+        if(text === 'completed'){
+            const completed = this.state.todoData
+                            .filter((el) => el.done);
+                            console.log(completed)
+            return completed
+        } else if(text === 'active'){
+            const active = this.state.todoData
+                            .filter((el) => !el.done);
+                            console.log( active)
+        return active
+        } else{
+            console.log( this.state.todoData)
+            return this.state.todoData
+            
+        }
+    }
 
-    const doneCount = this.state.todoData
-                        .filter((el) => !el.done).length;
-    return (
-      <div className="todoapp">
-          <NewTaskForm
-          addItem = {this.addItem}
-          />
-        <section className="main">
-          <TaskList 
-          tasks = {this.state.todoData}
-          onDeleted = {this.deleteItem}
-          addItem = {this.addItem}/>
-          <Filter done = {doneCount}/>
-        </section>  
-      </div>
-    );
-  }
+    clearCompleted = () => {
+        this.setState(({todoData}) => {
+
+            const newArray = todoData
+                            .forEach((el, index) => {
+                                if(el.done){
+                                    todoData.toSpliced(index, 1)
+                                }
+                            })
+
+        return {
+            todoData: newArray
+        }
+        })
+    }
+
+    render(){
+
+        const doneCount = this.state.todoData
+                            .filter((el) => !el.done).length;
+
+        return (
+        <div className="todoapp">
+            <NewTaskForm
+            addItem = {this.addItem}
+            />
+            <section className="main">
+            <TaskList 
+            tasks = {this.state.todoData}
+            onDeleted = {this.deleteItem}
+            addItem = {this.addItem}
+            onToggleDone = {this.onToggleDone}/>
+            <Filter 
+                done = {doneCount}
+                filter = {this.filter}
+                clearCompleted = {this.clearCompleted}
+            />
+            </section>  
+        </div>
+        );
+    }
   };

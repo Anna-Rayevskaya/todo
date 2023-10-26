@@ -2,14 +2,12 @@ import TaskListItem from "../task-list-item/task-list-item";
 import './task-list.css';
 
 const TaskList = ({ tasks, onDeleted,
-                    onToggleImportant,
                     onToggleDone }) => {
   const elements = tasks.map((item)=> {
     const {id, ...itemProps} = item;
     return(
       <TaskListItem {...itemProps} key={id}
       onDeleted = {() => onDeleted(id)}
-      onToggleImportant = {() => onToggleImportant(id)}
       onToggleDone ={() => onToggleDone(id)}/>
     )
   })
