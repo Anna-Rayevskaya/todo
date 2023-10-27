@@ -11,7 +11,8 @@ export default class App extends Component{
         this.createTodoItem('Drink Coffee'),
         this.createTodoItem('Make Awesome App'),
         this.createTodoItem('Have a lunch')
-      ]
+      ],
+      todoFilter: 'all'
     };
 
     createTodoItem(label){
@@ -62,44 +63,44 @@ export default class App extends Component{
         
     }
 
-    filter = (text) => {
-        if(text === 'completed'){
+    todoFilterState = (text) => {
+        this.setState(({todoFilter}) => {
+            if(text !== todoFilter){
+                return {
+                    todoFilter: text
+                }
+            }
+            
+        })
+    }
+
+    filter = () => {
+
+        if(this.state.todoFilter === 'completed'){
             const completed = this.state.todoData
                             .filter((el) => el.done);
-                            console.log(completed)
             return completed
-        } else if(text === 'active'){
+        } else if(this.state.todoFilter === 'active'){
             const active = this.state.todoData
                             .filter((el) => !el.done);
-                            console.log( active)
         return active
         } else{
-            console.log( this.state.todoData)
             return this.state.todoData
-            
         }
     }
 
-    clearCompleted = () => {
+    clearCompleted = () => { 
         this.setState(({todoData}) => {
-
-            const newArray = todoData
-                            .forEach((el, index) => {
-                                if(el.done){
-                                    todoData.toSpliced(index, 1)
-                                }
-                            })
-
-        return {
-            todoData: newArray
-        }
+            const newArray = todoData.filter(todo => !todo.done); 
+            return {
+                todoData: newArray
+            }
         })
     }
 
     render(){
 
-        const doneCount = this.state.todoData
-                            .filter((el) => !el.done).length;
+        const doneCount = this.state.todoData.filter((el) => !el.done).length;
 
         return (
         <div className="todoapp">
@@ -108,13 +109,13 @@ export default class App extends Component{
             />
             <section className="main">
             <TaskList 
-            tasks = {this.state.todoData}
+            tasks = {this.filter()}
             onDeleted = {this.deleteItem}
             addItem = {this.addItem}
             onToggleDone = {this.onToggleDone}/>
             <Filter 
                 done = {doneCount}
-                filter = {this.filter}
+                todoFilterState = {this.todoFilterState}
                 clearCompleted = {this.clearCompleted}
             />
             </section>  

@@ -17,7 +17,7 @@ export default class TaskListItem extends Component {
       return(
         <li className = {className}>
             <div className="view">
-              <input className="toggle" type="checkbox" onClick = { onToggleDone }/>
+              <input className="toggle" type="checkbox" onClick = { onToggleDone} checked = {done}/>
               <label>        
                 <span 
                   className = 'description'
