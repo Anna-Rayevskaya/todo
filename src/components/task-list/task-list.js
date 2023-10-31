@@ -1,4 +1,5 @@
 import TaskListItem from "../task-list-item/task-list-item";
+import PropTypes from 'prop-types';
 import './task-list.css';
 
 const TaskList = ({ tasks, onDeleted,
@@ -17,4 +18,8 @@ const TaskList = ({ tasks, onDeleted,
       </ul>
     );
   };
+
+  TaskList.propTypes = {
+    tasks: PropTypes.array
+  }
   export default TaskList;

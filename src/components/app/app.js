@@ -1,26 +1,22 @@
 import{Component} from 'react';
-import NewTaskForm  from '../NewTaskForm/NewTaskForm';
+import NewTaskForm from '../NewTaskForm/NewTaskForm';
 import TaskList from '../task-list/task-list';
 import Filter  from '../task-filter/task-filter';
 import './app.css';
 export default class App extends Component{
 
-    maxId = 100;
     state = {
-      todoData : [
-        this.createTodoItem('Drink Coffee'),
-        this.createTodoItem('Make Awesome App'),
-        this.createTodoItem('Have a lunch')
-      ],
+      todoData : [],
       todoFilter: 'all'
     };
 
-    createTodoItem(label){
-        return{
-            label,
-            done: false,
-            id: this.maxId++
-        }
+    static defaultProps = {
+        deleteItem: () => {},
+        addItem: () => {},
+        onToggleDone: () => {},
+        todoFilterState: () => {},
+        filter: () => {},
+        clearCompleted: () => {}
     }
 
     deleteItem = (id) => {
@@ -84,8 +80,10 @@ export default class App extends Component{
             const active = this.state.todoData
                             .filter((el) => !el.done);
         return active
-        } else{
+        } else if(this.state.todoFilter === 'all'){
             return this.state.todoData
+        } else{
+            return []
         }
     }
 

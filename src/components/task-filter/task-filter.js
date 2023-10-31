@@ -1,45 +1,18 @@
 import './task-filter.css';
 import { Component } from 'react';
-// export default class Filter extends Component{
-//   render(){
-//     const {done, todoFilterState, clearCompleted} = this.props;
-//     // className="selected" 
-//     return(
-//       <footer className="footer">
-//         <span className="todo-count">{done} items left</span>
-//         <ul className="filters">
-//           <li>
-//             <button 
-//               onClick = {()  =>  todoFilterState('all')}
-//             >All</button>
-//           </li>
-//           <li>
-//             <button
-//             onClick = {()  =>  todoFilterState('active')}
-//             >Active</button>
-//           </li>
-//           <li>
-//             <button
-//             onClick = {()  =>  todoFilterState("completed")}
-//             >Completed</button>
-//           </li>
-//         </ul>
-//         <button className="clear-completed"
-//         onClick = {()  =>  clearCompleted()}
-//         >Clear completed</button>
-//       </footer>
-//   )
-//   }
-   
-// }
-
+import PropTypes from 'prop-types';
 export default class Filter extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeButton: ""
-    };
+  state = {
+      activeButton: "all"
+    }
+
+  static defaultProps = {
+    handleButtonClick: () => {},
+    done:0
   }
+  static propTypes = {
+    done: PropTypes.number
+}
 
   handleButtonClick = (filterType) => {
     const { todoFilterState } = this.props;
@@ -53,7 +26,7 @@ export default class Filter extends Component {
   render() {
     const { done, clearCompleted } = this.props;
     const { activeButton } = this.state;
-
+    
     return (
       <footer className="footer">
         <span className="todo-count">{done} items left</span>
@@ -89,4 +62,5 @@ export default class Filter extends Component {
       </footer>
     );
   }
+  
 }

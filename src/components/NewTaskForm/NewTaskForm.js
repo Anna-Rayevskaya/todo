@@ -4,6 +4,10 @@ export default class NewTaskForm extends Component {
   state ={
     label: ''
   }
+  static defaultProps = {
+    onChange: () => {},
+    onSubmit: () => {}
+  }
 
   onChange = (e) => {
     this.setState({
@@ -24,6 +28,7 @@ export default class NewTaskForm extends Component {
       onSubmit={this.onSubmit}>
           <h1>My Todo List</h1>   
       <input 
+          name="name"
           className="new-todo" 
           placeholder="What needs to be done?"
           onChange={this.onChange}
