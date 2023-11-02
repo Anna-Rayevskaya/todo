@@ -1,32 +1,34 @@
-import './task-filter.css';
-import { Component } from 'react';
-import PropTypes from 'prop-types';
+import "./task-filter.css";
+import { Component } from "react";
+import PropTypes from "prop-types";
+
 export default class Filter extends Component {
   state = {
-      activeButton: "all"
-    }
+    activeButton: "all",
+  };
 
   static defaultProps = {
     handleButtonClick: () => {},
-    done:0
-  }
+    done: 0,
+  };
+
   static propTypes = {
-    done: PropTypes.number
-}
+    done: PropTypes.number,
+  };
 
   handleButtonClick = (filterType) => {
     const { todoFilterState } = this.props;
     todoFilterState(filterType);
 
     this.setState({
-      activeButton: filterType
+      activeButton: filterType,
     });
   };
 
   render() {
     const { done, clearCompleted } = this.props;
     const { activeButton } = this.state;
-    
+
     return (
       <footer className="footer">
         <span className="todo-count">{done} items left</span>
@@ -62,5 +64,4 @@ export default class Filter extends Component {
       </footer>
     );
   }
-  
 }

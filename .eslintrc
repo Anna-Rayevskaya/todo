@@ -1,0 +1,12 @@
+{
+  "extends": [
+    "airbnb/base",
+    "airbnb",
+    "airbnb/hooks",
+    "react-app",
+    "react-app/jest"
+  ],
+  "rules": {
+    "no-console": "warn"
+  }
+}
