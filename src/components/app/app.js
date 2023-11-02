@@ -1,99 +1,102 @@
-import { Component } from "react";
-import NewTaskForm from "../NewTaskForm/NewTaskForm";
-import TaskList from "../task-list/task-list";
-import Filter from "../task-filter/task-filter";
-import "./app.css";
+import { Component } from 'react'
 
-export default class App extends Component {
+import NewTaskForm from '../NewTaskForm/NewTaskForm'
+import TaskList from '../task-list/task-list'
+import Filter from '../task-filter/task-filter'
+import './app.css'
+
+class App extends Component {
   state = {
     todoData: [],
-    todoFilter: "all",
-  };
+    todoFilter: 'all',
+  }
 
-  static defaultProps = {
-    deleteItem: () => {},
-    addItem: () => {},
-    onToggleDone: () => {},
-    todoFilterState: () => {},
-    filter: () => {},
-    clearCompleted: () => {},
-  };
+  // static defaultProps = {
+  //   deleteItem: () => {},
+  //   addItem: () => {},
+  //   onToggleDone: () => {},
+  //   todoFilterState: () => {},
+  //   filter: () => {},
+  //   clearCompleted: () => {},
+  // }
 
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const newArray = todoData.toSpliced(idx, 1);
+      const idx = todoData.findIndex((el) => el.id === id)
+      const newArray = todoData.toSpliced(idx, 1)
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
   addItem = (text) => {
     const newItem = {
       label: text,
       id: Math.random().toString(36).slice(2),
-    };
+    }
 
     this.setState(({ todoData }) => {
-      const newArray = [...todoData, newItem];
+      const newArray = [...todoData, newItem]
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
   onToggleDone = (id) => {
     this.setState(({ todoData }) => {
-      const idx = todoData.findIndex((el) => el.id === id);
-      const oldItem = todoData[idx];
+      const idx = todoData.findIndex((el) => el.id === id)
+      const oldItem = todoData[idx]
       const newItem = {
         ...oldItem,
         done: !oldItem.done,
-      };
+      }
 
-      const newArray = todoData.toSpliced(idx, 1, newItem);
+      const newArray = todoData.toSpliced(idx, 1, newItem)
 
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
   todoFilterState = (text) => {
-    if (text !== this.state.todoFilter) {
-      this.setState(({ todoFilter }) => ({
-        todoFilter: text,
-      }));
+    const { todoFilter } = this.state
+
+    if (text !== todoFilter) {
+      this.setState({ todoFilter: text })
     }
-  };
+  }
 
   filter = () => {
-    if (this.state.todoFilter === "completed") {
-      const completed = this.state.todoData.filter((el) => el.done);
-      return completed;
+    const { todoFilter, todoData } = this.state
+    if (todoFilter === 'completed') {
+      const completed = todoData.filter((el) => el.done)
+      return completed
     }
-    if (this.state.todoFilter === "active") {
-      const active = this.state.todoData.filter((el) => !el.done);
-      return active;
+    if (todoFilter === 'active') {
+      const active = todoData.filter((el) => !el.done)
+      return active
     }
-    if (this.state.todoFilter === "all") {
-      return this.state.todoData;
+    if (todoFilter === 'all') {
+      return todoData
     }
-    return [];
-  };
+    return []
+  }
 
   clearCompleted = () => {
     this.setState(({ todoData }) => {
-      const newArray = todoData.filter((todo) => !todo.done);
+      const newArray = todoData.filter((todo) => !todo.done)
       return {
         todoData: newArray,
-      };
-    });
-  };
+      }
+    })
+  }
 
   render() {
-    const doneCount = this.state.todoData.filter((el) => !el.done).length;
+    const { todoData } = this.state
+    const doneCount = todoData.filter((el) => !el.done).length
 
     return (
       <div className="todoapp">
@@ -105,13 +108,20 @@ export default class App extends Component {
             addItem={this.addItem}
             onToggleDone={this.onToggleDone}
           />
-          <Filter
-            done={doneCount}
-            todoFilterState={this.todoFilterState}
-            clearCompleted={this.clearCompleted}
-          />
+          <Filter done={doneCount} todoFilterState={this.todoFilterState} clearCompleted={this.clearCompleted} />
         </section>
       </div>
-    );
+    )
   }
 }
+
+const defaultProps = {
+  deleteItem: () => {},
+  addItem: () => {},
+  onToggleDone: () => {},
+  todoFilterState: () => {},
+  filter: () => {},
+  clearCompleted: () => {},
+}
+
+export default { ...App, defaultProps }

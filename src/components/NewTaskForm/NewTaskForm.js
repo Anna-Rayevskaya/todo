@@ -1,31 +1,29 @@
-import { Component } from "react";
-import "./NewTaskForm.css";
+import { Component } from 'react'
+import './NewTaskForm.css'
 
-export default class NewTaskForm extends Component {
+class NewTaskForm extends Component {
   state = {
-    label: "",
-  };
-
-  static defaultProps = {
-    onChange: () => {},
-    onSubmit: () => {},
-  };
+    label: '',
+  }
 
   onChange = (e) => {
     this.setState({
       label: e.target.value,
-    });
-  };
+    })
+  }
 
   onSubmit = (e) => {
-               e.preventDefault();
-    this.props.addItem(this.state.label);
-         this.setState({
-      label: "",
-});
-  };
+    const { addItem } = this.props
+    const { label } = this.state
+    e.preventDefault()
+    addItem(label)
+    this.setState({
+      label: '',
+    })
+  }
 
-                                            render() {
+  render() {
+    const { label } = this.state
     return (
       <form className="header" onSubmit={this.onSubmit}>
         <h1>My Todo List</h1>
@@ -34,9 +32,16 @@ export default class NewTaskForm extends Component {
           className="new-todo"
           placeholder="What needs to be done?"
           onChange={this.onChange}
-          value={this.state.label}
-        ></input>
+          value={label}
+        />
       </form>
-    );
+    )
   }
 }
+
+const defaultProps = {
+  onChange: () => {},
+  onSubmit: () => {},
+}
+
+export default { ...NewTaskForm, defaultProps }

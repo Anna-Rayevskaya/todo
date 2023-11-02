@@ -1,23 +1,19 @@
-import PropTypes from "prop-types";
-import TaskListItem from "../task-list-item/task-list-item";
-import "./task-list.css";
+import PropTypes from 'prop-types'
 
-const TaskList = ({ tasks, onDeleted, onToggleDone }) => {
+import TaskListItem from '../task-list-item/task-list-item'
+import './task-list.css'
+
+function TaskList({ tasks, onDeleted, onToggleDone }) {
   const elements = tasks.map((item) => {
-    const { id, ...itemProps } = item;
+    const { id, ...itemProps } = item
     return (
-      <TaskListItem
-        {...itemProps}
-        key={id}
-        onDeleted={() => onDeleted(id)}
-        onToggleDone={() => onToggleDone(id)}
-      />
-    );
-  });
-  return <ul className="list-group todo-list">{elements}</ul>;
-};
+      <TaskListItem {...itemProps} key={id} onDeleted={() => onDeleted(id)} onToggleDone={() => onToggleDone(id)} />
+    )
+  })
+  return <ul className="list-group todo-list">{elements}</ul>
+}
 
 TaskList.propTypes = {
   tasks: PropTypes.array,
-};
-export default TaskList;
+}
+export default TaskList
