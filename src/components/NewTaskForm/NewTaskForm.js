@@ -1,9 +1,14 @@
 import { Component } from 'react'
 import './NewTaskForm.css'
 
-class NewTaskForm extends Component {
+export default class NewTaskForm extends Component {
   state = {
     label: '',
+  }
+
+  static defaultProps = {
+    onChange: () => {},
+    onSubmit: () => {},
   }
 
   onChange = (e) => {
@@ -38,10 +43,3 @@ class NewTaskForm extends Component {
     )
   }
 }
-
-const defaultProps = {
-  onChange: () => {},
-  onSubmit: () => {},
-}
-
-export default { ...NewTaskForm, defaultProps }

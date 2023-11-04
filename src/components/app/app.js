@@ -5,20 +5,20 @@ import TaskList from '../task-list/task-list'
 import Filter from '../task-filter/task-filter'
 import './app.css'
 
-class App extends Component {
+export default class App extends Component {
   state = {
     todoData: [],
     todoFilter: 'all',
   }
 
-  // static defaultProps = {
-  //   deleteItem: () => {},
-  //   addItem: () => {},
-  //   onToggleDone: () => {},
-  //   todoFilterState: () => {},
-  //   filter: () => {},
-  //   clearCompleted: () => {},
-  // }
+  static defaultProps = {
+    deleteItem: () => {},
+    addItem: () => {},
+    onToggleDone: () => {},
+    todoFilterState: () => {},
+    filter: () => {},
+    clearCompleted: () => {},
+  }
 
   deleteItem = (id) => {
     this.setState(({ todoData }) => {
@@ -114,14 +114,3 @@ class App extends Component {
     )
   }
 }
-
-const defaultProps = {
-  deleteItem: () => {},
-  addItem: () => {},
-  onToggleDone: () => {},
-  todoFilterState: () => {},
-  filter: () => {},
-  clearCompleted: () => {},
-}
-
-export default { ...App, defaultProps }
