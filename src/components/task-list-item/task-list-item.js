@@ -51,6 +51,11 @@ export default class TaskListItem extends Component {
             >
               {label}
             </span>
+            <span className="description">
+              <button type="button" className="icon icon-play" aria-label="edit" />
+              <button type="button" className="icon icon-pause" aria-label="edit" />
+              12:25
+            </span>
             <span className="created">created {formatDistanceToNow(new Date(), { includeSeconds: true })}</span>
           </label>
           <button type="button" className="icon icon-edit" onClick={onToggleImportant} aria-label="edit" />
