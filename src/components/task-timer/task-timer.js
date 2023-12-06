@@ -9,12 +9,9 @@ export default class Timer extends Component {
     const { timer } = this.props
     this.setState({
       timer,
+      isTimerStarted: false,
     })
   }
-
-  //   componentWillUnmount() {
-  //     clearInterval(this.timerID)
-  //   }
 
   formatTime = (time) => {
     const minutes = Math.floor(time / 60)
@@ -25,13 +22,24 @@ export default class Timer extends Component {
   }
 
   startTimer = () => {
-    this.timerID = setInterval(() => {
-      this.setState((prevState) => ({ timer: prevState.timer - 1 }))
-    }, 1000)
+    const { isTimerStarted } = this.state
+    if (!isTimerStarted) {
+      this.timerID = setInterval(() => {
+        this.setState((prevState) => ({ timer: prevState.timer - 1 }))
+      }, 1000)
+
+      this.setState({
+        isTimerStarted: true,
+      })
+    }
   }
 
   stopTimer = () => {
     clearInterval(this.timerID)
+
+    this.setState({
+      isTimerStarted: false,
+    })
   }
 
   render() {
