@@ -9,6 +9,7 @@ export default class App extends Component {
   state = {
     todoData: [],
     todoFilter: 'all',
+    timer: '',
   }
 
   static defaultProps = {
@@ -41,6 +42,13 @@ export default class App extends Component {
       return {
         todoData: newArray,
       }
+    })
+  }
+
+  addTimer = (min, sec) => {
+    const tim = Number(min) * 60 + Number(sec)
+    this.setState({
+      timer: tim,
     })
   }
 
@@ -95,18 +103,19 @@ export default class App extends Component {
   }
 
   render() {
-    const { todoData } = this.state
+    const { todoData, timer } = this.state
     const doneCount = todoData.filter((el) => !el.done).length
 
     return (
       <div className="todoapp">
-        <NewTaskForm addItem={this.addItem} />
+        <NewTaskForm addItem={this.addItem} addTimer={this.addTimer} />
         <section className="main">
           <TaskList
             tasks={this.filter()}
             onDeleted={this.deleteItem}
             addItem={this.addItem}
             onToggleDone={this.onToggleDone}
+            timer={timer}
           />
           <Filter done={doneCount} todoFilterState={this.todoFilterState} clearCompleted={this.clearCompleted} />
         </section>
