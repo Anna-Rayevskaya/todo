@@ -39,6 +39,7 @@ function TaskListItem({ label, onDeleted, onToggleImportant, onToggleDone, done,
           <Timer timer={timer} />
           <span className="created">created {formatDistanceToNow(new Date(), { includeSeconds: true })}</span>
         </label>
+
         <button type="button" className="icon icon-edit" onClick={onToggleImportant} aria-label="edit" />
         <button type="button" className="icon icon-destroy" onClick={onDeleted} aria-label="delete" />
       </div>
