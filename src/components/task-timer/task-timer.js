@@ -1,19 +1,15 @@
-import { Component } from 'react'
+import { useEffect, useState } from 'react'
 
-export default class Timer extends Component {
-  state = {
-    timer: '',
-  }
+function Timer({ timer }) {
+  const [timerState, setTimer] = useState(timer)
+  const [isTimerStarted, setIsTimerStarted] = useState(false)
+  const [timerID, setTimerID] = useState(null)
 
-  componentDidMount() {
-    const { timer } = this.props
-    this.setState({
-      timer,
-      isTimerStarted: false,
-    })
-  }
+  useEffect(() => {
+    setTimer(timer)
+  }, [timer])
 
-  formatTime = (time) => {
+  const formatTime = (time) => {
     const minutes = Math.floor(time / 60)
       .toString()
       .padStart(2, '0')
@@ -21,36 +17,29 @@ export default class Timer extends Component {
     return `${minutes}:${seconds}`
   }
 
-  startTimer = () => {
-    const { isTimerStarted } = this.state
+  const startTimer = () => {
     if (!isTimerStarted) {
-      this.timerID = setInterval(() => {
-        this.setState((prevState) => ({ timer: prevState.timer - 1 }))
+      const newTimer = setInterval(() => {
+        setTimer((prevState) => prevState - 1)
       }, 1000)
-
-      this.setState({
-        isTimerStarted: true,
-      })
+      setTimerID(newTimer)
+      setIsTimerStarted(true)
     }
   }
 
-  stopTimer = () => {
-    clearInterval(this.timerID)
+  const stopTimer = () => {
+    clearInterval(timerID)
 
-    this.setState({
-      isTimerStarted: false,
-    })
+    setIsTimerStarted(false)
   }
 
-  render() {
-    const { timer } = this.state
-    const newTim = this.formatTime(timer)
-    return (
-      <span className="description">
-        <button type="button" className="icon icon-play" aria-label="edit" onClick={this.startTimer} />
-        <button type="button" className="icon icon-pause" aria-label="edit" onClick={this.stopTimer} />
-        {newTim}
-      </span>
-    )
-  }
+  const newTim = formatTime(timerState)
+  return (
+    <span className="description">
+      <button type="button" className="icon icon-play" aria-label="edit" onClick={startTimer} />
+      <button type="button" className="icon icon-pause" aria-label="edit" onClick={stopTimer} />
+      {newTim}
+    </span>
+  )
 }
+export default Timer
