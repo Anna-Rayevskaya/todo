@@ -1,12 +1,21 @@
 import './task-list-item.css'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
 import { formatDistanceToNow } from 'date-fns'
 
 import Timer from '../task-timer/task-timer'
 
-function TaskListItem({ label, onDeleted, onToggleImportant, onToggleDone, done, timer }) {
-  const [doneState, setDone] = useState(false)
+function TaskListItem({ label, onDeleted, onToggleImportant, onToggleDone, done, timer, id }) {
+  const [doneState, setDone] = useState(done)
+  const [completedClassName, setCompletedClassName] = useState('')
+
+  useEffect(() => {
+    if (done) {
+      setCompletedClassName('completed')
+    } else {
+      setCompletedClassName('')
+    }
+  }, [done])
 
   TaskListItem.propTypes = {
     label: PropTypes.string,
@@ -14,26 +23,16 @@ function TaskListItem({ label, onDeleted, onToggleImportant, onToggleDone, done,
   }
 
   const handleChange = () => {
-    onToggleDone()
+    onToggleDone(id)
     setDone(!doneState)
   }
 
-  const onKeyHandler = (event) => {
-    if (event.key === 'Enter') {
-      onToggleDone()
-    }
-  }
-
-  let className = ''
-  if (done) {
-    className += 'completed'
-  }
   return (
-    <li className={className}>
+    <li className={completedClassName}>
       <div className="view">
         <input className="toggle" type="checkbox" onChange={handleChange} defaultChecked={done} />
         <label>
-          <span className="description" onClick={onToggleDone} onKeyDown={onKeyHandler} role="textbox" tabIndex={0}>
+          <span className="description" role="textbox" tabIndex={0}>
             {label}
           </span>
           <Timer timer={timer} />

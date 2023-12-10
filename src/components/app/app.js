@@ -8,7 +8,7 @@ import './app.css'
 function App() {
   const [todoData, setTodoData] = useState([])
   const [todoFilter, setTodoFilter] = useState('all')
-  const [timer, setTimer] = useState('')
+  // const [timer, setTimer] = useState('')
 
   App.defaultProps = {
     deleteItem: () => {},
@@ -25,18 +25,16 @@ function App() {
     setTodoData(newArray)
   }
 
-  const addItem = (text) => {
+  const addItem = (text, min, sec) => {
+    const tim = Number(min) * 60 + Number(sec)
+    // setTimer(tim)
     const newItem = {
       label: text,
       id: Math.random().toString(36).slice(2),
+      timer: tim,
     }
     const newArray = [...todoData, newItem]
     setTodoData(newArray)
-  }
-
-  const addTimer = (min, sec) => {
-    const tim = Number(min) * 60 + Number(sec)
-    setTimer(tim)
   }
 
   const onToggleDone = (id) => {
@@ -80,9 +78,9 @@ function App() {
 
   return (
     <div className="todoapp">
-      <NewTaskForm addItem={addItem} addTimer={addTimer} />
+      <NewTaskForm addItem={addItem} />
       <section className="main">
-        <TaskList tasks={filter()} onDeleted={deleteItem} addItem={addItem} onToggleDone={onToggleDone} timer={timer} />
+        <TaskList tasks={filter()} onDeleted={deleteItem} addItem={addItem} onToggleDone={onToggleDone} />
         <Filter done={doneCount} todoFilterState={todoFilterState} clearCompleted={clearCompleted} />
       </section>
     </div>

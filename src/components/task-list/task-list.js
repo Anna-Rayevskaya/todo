@@ -3,13 +3,14 @@ import PropTypes from 'prop-types'
 import TaskListItem from '../task-list-item/task-list-item'
 import './task-list.css'
 
-function TaskList({ tasks, onDeleted, onToggleDone, timer }) {
+function TaskList({ tasks, onDeleted, onToggleDone }) {
   const elements = tasks.map((item) => {
-    const { id, ...itemProps } = item
+    const { id, timer, ...itemProps } = item
     return (
       <TaskListItem
         {...itemProps}
         key={id}
+        id={id}
         timer={timer}
         onDeleted={() => onDeleted(id)}
         onToggleDone={() => onToggleDone(id)}

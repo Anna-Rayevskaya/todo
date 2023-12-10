@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './NewTaskForm.css'
 
-function NewTaskForm({ addItem, addTimer }) {
+function NewTaskForm({ addItem }) {
   const [label, setLabel] = useState('')
   const [min, setMin] = useState('')
   const [sec, setSec] = useState('')
@@ -26,8 +26,7 @@ function NewTaskForm({ addItem, addTimer }) {
 
   const onSubmit = (e) => {
     e.preventDefault()
-    addItem(label)
-    addTimer(min, sec)
+    addItem(label, min, sec)
     setLabel('')
     setMin('')
     setSec('')
